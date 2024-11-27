@@ -1,27 +1,16 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment'
 
-let authKey = undefined;
-let controlUrl = undefined;
 if(browser)
 {
 	let params = new URLSearchParams("?"+window.location.hash.substr(1));
-	authKey = params.get("authKey") || undefined;
-	controlUrl = params.get("controlUrl") || undefined;
 }
-let dashboardUrl = controlUrl ? null : "https://login.tailscale.com/admin/machines";
 let resolveLogin = null;
 let loginPromise = new Promise((f,r) => {
 	resolveLogin = f;
 });
 let connectionState = writable("DISCONNECTED");
 let exitNode = writable(false);
-
-function loginUrlCb(url)
-{
-	connectionState.set("LOGINREADY");
-	resolveLogin(url);
-}
 
 function stateUpdateCb(state)
 {
@@ -53,6 +42,7 @@ function netmapUpdateCb(map)
 	}
 }
 
+// just initiate a connection to the websocket proxy
 export async function startLogin()
 {
 	connectionState.set("LOGINSTARTING");
@@ -61,6 +51,6 @@ export async function startLogin()
 	return url;
 }
 
-export const networkInterface = { authKey: authKey, controlUrl: controlUrl, loginUrlCb: loginUrlCb, stateUpdateCb: stateUpdateCb, netmapUpdateCb: netmapUpdateCb };
+export const networkInterface = { loginUrlCb: loginUrlCb, stateUpdateCb: stateUpdateCb, netmapUpdateCb: netmapUpdateCb };
 
-export const networkData = { currentIp: null, connectionState: connectionState, exitNode: exitNode, loginUrl: null, dashboardUrl: dashboardUrl }
+export const networkData = { currentIp: null, connectionState: connectionState, exitNode: exitNode }

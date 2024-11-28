@@ -2,10 +2,11 @@ FROM --platform=i386 i386/debian:buster
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get clean && apt-get update && apt-get -y upgrade
 RUN apt-get -y install apt-utils gcc \
-	python3 vim tmux unzip ruby nodejs \
+	python3 vim unzip ruby nodejs \
 	fakeroot dbus base whiptail hexedit \
 	patch wamerican ucf manpages \
 	file luajit make lua50 dialog curl \
+    libevent-dev ncurses-dev build-essential bison pkg-config tmux \
 	less cowsay netcat-openbsd
 RUN useradd -m user && echo "user:password" | chpasswd
 COPY --chown=user:user ./examples /home/user/examples

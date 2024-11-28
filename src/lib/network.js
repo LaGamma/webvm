@@ -51,6 +51,6 @@ export async function startLogin()
 	return url;
 }
 
-export const networkInterface = { loginUrlCb: loginUrlCb, stateUpdateCb: stateUpdateCb, netmapUpdateCb: netmapUpdateCb };
+export const networkInterface = { stateUpdateCb: stateUpdateCb, netmapUpdateCb: netmapUpdateCb };
 
 export const networkData = { currentIp: null, connectionState: connectionState, exitNode: exitNode }

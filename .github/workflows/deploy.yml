@@ -43,7 +43,7 @@ jobs:
         actions: 'write' # Required in order to terminate the workflow run.
   
       steps:
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v4
         # Guard clause that cancels the workflow in case of an invalid DOCKERFILE_PATH and/or incorrectly configured Github Pages. 
         # The main reason for choosing this workaround for aborting the workflow is the fact that it does not display the workflow as successful, which can set false expectations.
         - name: DOCKERFILE_PATH.
@@ -101,7 +101,7 @@ jobs:
 
     steps:
       # Checks-out our repository under $GITHUB_WORKSPACE, so our job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Setting the IMAGE_NAME variable in GITHUB_ENV to <Dockerfile name>_<date>_<run_id>.ext2.
       - name: Generate the image_name.
